@@ -1,0 +1,146 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="description" content="Cycle counter for x86 3D processors.">
+<meta name="keywords" content="MMX, 3DNow!, SSE, Pentium, 3D, assembler, transformations, cycle, CPU, Athlon ">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>WinRC2Be</title>
+</head>
+
+<body bgcolor="#F0BC00" text="#000000" link="#FFFFFF" alink="#FFFFFF" vlink="#FFFFFF">
+
+<h1><font face="Arial"><span lang="fr">WinRC2Be</span> </font></h1>
+<h4><font face="Arial">Microsoft Visual Studio 6 Resource file to BeOS 
+InterfaceKit source converter<br>
+<a href="#Revision">Beta <span lang="fr">8</span></a> - <span lang="fr">18 
+Oct.2002</span></font></h4>
+<p><font face="Arial"><font size="-2">© 1995-200<span lang="fr">2</span>
+<a href="http://www.realtech.scene.org" target="_blank">realtech VR</a>. All 
+rights reserved.</font></font></p>
+<h2 align="left"><font face="Arial">Summary</font></h2>
+<blockquote>
+  <ul>
+    <li><font face="Arial"><a href="#Introduction">Introduction</a></font></li>
+    <li><font face="Arial"><a href="#UserGuide">License</a></font></li>
+    <li><a href="#Compared results"><font face="Arial">Revision notes</font></a></li>
+    <li><a href="#License"><font face="Arial">Download</font></a></li>
+  </ul>
+</blockquote>
+<hr>
+<h3><font face="Arial"><a name="Introduction">Introduction</a></font></h3>
+<blockquote>
+  <p><font face="Arial">When&nbsp; you want to port applications from a platform 
+  to an other, it sometimes the pain to convert user dialog box since there is 
+  no standard for constructing. </font></p>
+  <p><font face="Arial">Since the Microsoft Visual C++ has a quite convenient 
+  graphical interface for building dialog boxes, menus and save into such called 
+  'Resource file' (.RC), and since I wanted to convert some dialog boxes to BeOS 
+  platform and since the both OS have the same 'logic' of user interface (window 
+  with press button, check boxes, list boxes etc..) <span lang="fr">WinRC2Be</span> 
+  was born.&nbsp;</font></p>
+  <p><font face="Arial">This program reads a .RC files and generates source code 
+  for BeOS with the same layout, exporting menu, windows and all widgets like 
+  press button, text, etc..., bitmap and icon (yes!)</font></p>
+  <p><font face="Arial">This program is beta version<span lang="fr"> and Open 
+  Source (MIT style) and will placed on SourceForge.net soo</span></font></p>
+</blockquote>
+<hr>
+<h3><span lang="fr"><font face="Arial"><a name="License">License</a></font></span></h3>
+<blockquote>
+  <p><font face="Arial">Copyright (c) 2002 realtech VR<br>
+  <br>
+  Permission is hereby granted, free of charge, to any person obtaining a copy 
+  of this software and associated documentation files (the &quot;Software&quot;), to deal 
+  in the Software without restriction, including without limitation the rights 
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
+  copies of the Software, and to permit persons to whom the Software is 
+  furnished to do so, subject to the following conditions:<br>
+  <br>
+  The above copyright notice and this permission notice shall be included in all 
+  copies or substantial portions of the Software.<br>
+  <br>
+  THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
+  SOFTWARE.<br>
+&nbsp;</font></p>
+</blockquote>
+<hr>
+<h3><font face="Arial"><a name="User Guide">User Guide</a></font></h3>
+<blockquote>
+  <p><font face="Arial">The syntax is&nbsp;</font></p>
+  <p><span lang="fr"><font face="Arial">w32rc2be</font></span><font face="Arial"> 
+  &lt;<i>Resource file.RC</i>&gt;</font></p>
+  <p><font face="Arial"><b>Files as input</b></font></p>
+  <p><font face="Arial"><span lang="fr">- </span>Your .rc source file<span lang="fr">
+  </span><br>
+  <span lang="fr">- </span>Your bitmaps files (BMP, ICO format). Please notes 
+  that BeOS is CASE sensitive.<br>
+  <span lang="fr">- </span>The file</font> <font face="Arial">resource.<span lang="fr">h</span></font></p>
+  <p><font face="Arial"><b>Files as output</b></font></p>
+  <p><font face="Arial">RApplication.cpp : The main program, where the 
+  BApplication is instanced<br>
+  RApplication.h : the related C++ header of the application.<br>
+  RWindow.cpp: this will create the function BWindow *LoadResource(unsigned id) 
+  . With this function, you can load your dialog.<br>
+  RWindow.h:&nbsp;&nbsp; the related C++ header of the dialog boxes<br>
+  RView.cpp: this contains the equivalent source code of the dialog box 
+  creation.&nbsp;<br>
+  RView.h:&nbsp;&nbsp; the related C++ header of the dialog boxes<br>
+  </font></p>
+  <p><b><font face="Arial">How to uses the generated source code.</font></b></p>
+  <p><font face="Arial">Create a new project under BeOS with theses files 
+  described above. You may need the RBitmapLoader.so library that contains that 
+  exports .BMP and .ICO into BBitmap<span lang="fr"> (provided)</span></font></p>
+  <p><font face="Arial">Assuming you want to display the dialog box named 
+  IDD_FORMVIEW; here is the source code.</font></p>
+  <p><font face="Arial"><b>Win32</b>:</font></p>
+  <p><font face="Courier">#include &quot;resource.h&quot;<br>
+  DialogBoxParam( hInstance, MAKEINTRESOURCE(IDD_FORMVIEW), NULL, (DLGPROC) 
+  myWindowProc, NULL);</font></p>
+  <p><font face="Arial"><b>BeOS</b>:<br>
+  <br>
+  </font><font face="Courier">#include &quot;resource.h&quot;<br>
+  BWindow *myWindow = LoadResource(IDD_FORMVIEW);<br>
+  myWindow-&gt;Show();<br>
+  </font></p>
+  <p><font face="Arial">Note that resource.h is portable and is used on both 
+  platform.<br>
+  </font></p>
+</blockquote>
+<hr>
+<h3><font face="Arial"><span lang="fr"><a name="Known limitations:">Known 
+limitations:</a></span></font></h3>
+<blockquote>
+  <p><font face="Arial"><span lang="fr">Before exporting your project, you must 
+  be sure that your window resources are sorted from back to front (else, some 
+  widgets won't be visible). To do, use the Layout / Tab Order in your Visual 
+  Studio Editor and re-order correctly your window items. This will not changes 
+  you Win32 application behaviour.</span></font></p>
+  <p><span lang="fr"><font face="Arial">Beside, it will export probably 
+  everything from your Win32 application.</font></span></p>
+  <p>&nbsp;</p>
+</blockquote>
+<hr>
+<h3><font face="Arial"><a name="Revision">Revision notes</a></font></h3>
+<blockquote>
+  <p><font face="Arial"><b>b<span lang="fr">5</span></b> : First Beta Public 
+  Release<br>
+  <b>b<span lang="fr">8</span></b> : <span lang="fr">Source released</span><br>
+  </font></p>
+</blockquote>
+<hr>
+<p><font face="Arial"><font size="-2">© Copyright 1995-2000
+<a href="http://www.realtech.scene.org" target="_blank">realtech VR</a>. All 
+rights reserved</font><font color="#f0ba00" size="-2">® is a registered 
+trademark of realtechVR, 198.1995, 2000</font></font></p>
+
+</body>
+
+</html>
